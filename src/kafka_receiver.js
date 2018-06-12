@@ -26,7 +26,7 @@ const receiver = (receiverContext) => {
 
   return (message, messageContext) => new Promise((res, rej) => {
     const sendMessage = (msg, msgCtx) => {
-      if (!msg){
+      if (!msg) {
         rej(new Error('Message is null'));
         return;
       }
@@ -38,7 +38,7 @@ const receiver = (receiverContext) => {
       const payloads = [{
         topic,
         messages: [
-          m
+          m,
         ],
       }];
 
@@ -64,7 +64,7 @@ const receiver = (receiverContext) => {
     } else {
       log.debug('Producer is not ready. Waiting for "ready" event.');
       producer.on('ready', () => {
-        sendMessage(message, messageContext)
+        sendMessage(message, messageContext);
       });
     }
   });
