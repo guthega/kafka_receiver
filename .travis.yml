@@ -1,0 +1,34 @@
+language: node_js
+node_js:
+- '10'
+- '9'
+cache:
+  directories:
+  - node_modules
+addons:
+  hosts:
+    - zookeeper
+    - kafka
+before_install:
+  - wget http://www.us.apache.org/dist/kafka/1.1.0/kafka_2.11-1.1.0.tgz -O kafka.tgz
+  - mkdir -p kafka && tar xzf kafka.tgz -C kafka --strip-components 1
+  - nohup bash -c "cd kafka && bin/zookeeper-server-start.sh config/zookeeper.properties &"
+  - nohup bash -c "cd kafka && bin/kafka-server-start.sh config/server.properties &"
+  - sleep 5
+  - kafka/bin/kafka-topics.sh --create --partitions 1 --replication-factor 1 --topic test_out --zookeeper zookeeper:2181
+script:
+  - yarn lint
+  - yarn test
+  - yarn compile
+after_success:
+  - yarn coverage
+deploy:
+  provider: npm
+  email: $NPM_EMAIL
+  api_key: $NPM_TOKEN
+  skip_cleanup: true
+  on:
+    branch: master
+    tags: true
+    repo: guthega/kafka_receiver
+    node: '10'
