@@ -1,0 +1,10 @@
+{
+  "module": "@guthega/kafka_receiver",
+  "version": "0.1.0",
+  "properties": {
+    "connection": {
+      "host": "zookeeper:2181"
+    },
+    "topic": "test"
+  }
+}
