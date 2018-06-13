@@ -16,7 +16,7 @@ Refer to documentation in the [Guthega repo](https://github.com/guthega) for not
 The object passed to the handler's factory method expects the following properties to be present in the receiver's config:
 
 * `connection` - Kafka client connection properties. Supports connecting via zookeeper and direct-to-Kafka. See **Client Connections** below for more information.
-* `topics` - an array of topics that the message/s should be routed to.
+* `topic` - the topic that the message should be routed to.
 * `producerOptions` - the Elasticsearch client connection properties for writing documents. This module makes use of the official Elasticsearch Client for Javascript. Please refer to the [client connection options](https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/configuration.html#config-options) for information on which entries under `properties` are available and should be set.
 
 ## Client Connections
